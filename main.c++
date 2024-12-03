@@ -13,7 +13,15 @@
 // Linking with the Ws2_32.lib library, doesn't work with GCC or MinGW.
 #pragma comment(lib, "Ws2_32.lib")
 
+void startSocket();
+
 int main(int argc, char* argv[]) {
+
+    startSocket();
+
+}
+
+void startSocket(){
 
     // I need to use sockets in order to send and receive data over a network.
     // To use sockets in C++ I need to use a library like Winsock from microsoft.
@@ -143,5 +151,5 @@ int main(int argc, char* argv[]) {
     } while (iResult > 0);
 
     WSACleanup();
-
+    
 }
