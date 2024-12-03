@@ -107,7 +107,7 @@ int startSocketWindows(int argc, char *argv[])
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_protocol = IPPROTO_TCP;
 
-#define DEFAULT_PORT "27015"
+#define DEFAULT_PORT "80"
 
     // Resolve the server address and port by providing the node via the command line along with other parameters.
     // Will update and replace node argument with constant.
