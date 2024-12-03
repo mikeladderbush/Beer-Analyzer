@@ -73,6 +73,32 @@ int main(int argc, char* argv[]) {
 
     // Create a socket for connecting to the server
     ConnectSocket = socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
+    // Error checking that specifically returns the last error in the socket.
+    if(ConnectSocket == INVALID_SOCKET) {
+        printf("Error at socket(): ld\n", WSAGetLastError());
+        freeadrinfo(result);
+        WSACleanup();
+        return 1;
+    }
+
+    // Connect to the server by passing a socket and the variables of a sockaddr struct
+    // and if fails then close socket and set socket to Invalid.
+    iResult = connect( ConnectSocket, ptr->ai_addr, (int)ptr->ai_addrlen);
+    if (iResult == SOCKET_ERROR) {
+        closesocket(ConnectSocket);
+        ConnectSocket = INVALID_SOCKET;
+    }
+
+    // Typically the next address will be attempted but documentation says 
+    // This example just keeps it simple.
+
+    freeadrinfo(result);
+
+    if (ConnectSocket == INVALID_SOCKET) {
+        printf("Unable to connect to the server");
+        WSACleanup();
+        return 1;
+    }
 
     WSACleanup();
 
