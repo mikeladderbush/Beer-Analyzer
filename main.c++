@@ -1,4 +1,21 @@
-// Using the WIN32_LEAN_AND_MEAN macro in order to avoid including winsock.h in the windows header, which would cause linking errors.
+// Function declarations and lack of includes due to cross platform
+void startSocketWindows();
+void startSocketLinux();
+void error(char *msg);
+
+int main(int argc, char* argv[]) {
+
+    	#ifndef _WIN32
+	startSocketWindows();
+	#elif __linux__
+	startSocketLinux();
+	#endif
+
+}
+
+void startSocketWindows(){
+
+// Using the WIN32_LEAN_AND_MEAN macro in order to avoid including winsock.h in the windows header	  //, which would cause linking errors.
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
@@ -12,18 +29,8 @@
 
 // Linking with the Ws2_32.lib library, doesn't work with GCC or MinGW.
 #pragma comment(lib, "Ws2_32.lib")
-
-void startSocket();
-
-int main(int argc, char* argv[]) {
-
-    startSocket();
-
-}
-
-void startSocket(){
-
-    // I need to use sockets in order to send and receive data over a network.
+   
+	// I need to use sockets in order to send and receive data over a network.
     // To use sockets in C++ I need to use a library like Winsock from microsoft.
     // Winsock will allow me to create sockets.
     // Initializing Winsock by creating a WSADATA struct which will define the implementation of my sockets.
@@ -152,4 +159,89 @@ void startSocket(){
 
     WSACleanup();
     
+}
+// Error for linux sockets
+void error(char *msg){
+	perror(msg);
+	exit(0);
+}
+// Linux sockets
+void startSocketLinux() {
+
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+
+// file descriptor variables and port numbers along with return value for read and write calls "n"
+int sockfd, portno, n;
+
+// structs that contain the internet address as well as the port and AF_INET
+struct sockaddr_in serv_addr;
+
+// points to a host server on the internet.
+struct hostent *server;
+
+// Create a buffer to store the requests and determine if the correct arguments are provided.
+char buffer[256];
+if (argc < 3)
+{
+	fprintf(stderr, "usage %s hostname port", argv[0]);
+	exit(0);
+}
+
+// convert the second argument to an integer to represent the port.
+// then use the socket function to open the socket and assign it to sockfd.
+portno = atoi(argv[2]);
+sockfd = socket(AF_INET, SOCK_STREAM, 0);
+if (sockfd < 0) {
+	error("ERROR opening socket");
+}
+
+// take our first argument and assign it as the hostname for our server struct.
+// using this method returns a pointer to a hostent struct that contains data about the passed hostname.
+// the struct holds the ip address in the field char *h_addr
+server = gethostbyname(argv[1]);
+if(server == NULL)
+{
+	fprintf(stderr, "ERROR, no such host");
+	exit(0);
+}
+
+// This code sets the fields in the serv_addr struct which is the struct that contains the server address
+// it does so by zeroing the memory location of the serv_addr struct.
+// then sets the protocol.
+// then by copying the server member "h_addr" to the serv_addr member sin_addr's member s_addr.
+// and finally specifying that the length is equivalent to the server names length.
+// e.g. void bcopy(char *s1, char *s2, int lenght)
+// htons changes the previously provided port member to the correct network byte order.
+bzero((char *) &serv_addr, sizeof(serv_addr));
+serv_addr.sin_family = AF_INET;
+bcopy((char*)server->h_addr, (char*)&serv_addr.sin_addr.s_addr, server->h_length);
+serv_addr.sin_port = htons(portno);
+
+// after establishing the socket and server we want to connect to we use the connect method.
+// which takes the socket file descriptor, address of the host and the length of the address as
+// parameters.
+if (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
+	error("Error connecting");
+}
+
+// Now if all has worked correctly we can use the socket and connection to send a message to the server.
+printf("Please enter the message: ");
+bzero(buffer,256);
+fgets(buffer,255,stdin);
+n = write(sockfd, buffer, strlen(buffer));
+if (n < 0) {
+	error("Error writing to socket");
+}
+bzero(buffer,256);
+n = read(sockfd,buffer,255);
+if (n < 0) {
+	error("Error reading from socket");
+}
+printf("%s", buffer);
+return 0;
+
 }
