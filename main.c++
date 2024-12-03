@@ -57,6 +57,7 @@ int main(int argc, char* argv[]) {
     #define DEFAULT_PORT "27015"
 
     // Resolve the server address and port by providing the node via the command line along with other parameters.
+    // Will update and replace node argument with constant.
     iResult = getaddrinfo(argv[1], DEFAULT_PORT, &hints, &result);
     if (iResult != 0) {
         printf("getaddrinfo failed: %d\n", iResult);
@@ -140,7 +141,7 @@ int main(int argc, char* argv[]) {
             printf("recv failed: $d\n", WSAGetLastError());
         }
     } while (iResult > 0);
-         
+
     WSACleanup();
 
 }
