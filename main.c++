@@ -100,6 +100,47 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+
+    //Defining new buffer variables for when we receive data from the server.
+    #define DEFAULT_BUFLEN 512
+
+    int recvbuflen = DEFAULT_BUFLEN;
+
+    const char *sendbuf = "this is a test";
+    char recvbuf[DEFAULT_BUFLEN];
+
+    // Testing a send function to the socket.
+    iResult = send(ConnectSocket, sendbuf, (int)strlen(sendbuf). 0);
+    if (iResult == SOCKET_ERROR) {
+        printf("send failed; %d\n", WSAGetLastError());
+        closesocket(ConnectSocket);
+        WSACleanup();
+        return 1;
+    }
+
+    printf("Bytes Send: %ld\n", iResult);
+
+    // Now I will shutdown the socket and leave it open only for receiving.
+    iResult = shutdown(ConnectSocket, SD_SEND);
+    if (iResult == SOCKET_ERROR) {
+        printf("shutdown failed: %d\n", WSAGetLastError());
+        closesocket(ConnectSocket);
+        WSACleanup();
+        return 1;
+    }
+ 
+    // Now the socket will only receive data until the connection is closed.
+    do {
+        iResult = recv(ConnectSocket, recvbuf, recvbuflen, 0);
+        if(iResult > 0) {
+            printf("Bytes received: %d\n", iResult);
+        } else if (iResult == 0) {
+            printf("Connection Closed\n");
+        } else {
+            printf("recv failed: $d\n", WSAGetLastError());
+        }
+    } while (iResult > 0);
+         
     WSACleanup();
 
 }
