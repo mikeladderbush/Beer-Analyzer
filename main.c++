@@ -1,7 +1,7 @@
 // Function declarations and lack of includes due to cross platform
 int startSocketWindows(int argc, char* argv[]);
 int startSocketLinux(int argc, char* argv[]);
-void error(char *msg);
+void error(const char *msg);
 
 #if defined(_WIN32) || defined(_WIN64)
 
@@ -27,7 +27,9 @@ void error(char *msg);
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
-startSocketLinux();
+#include <stdlib.h>
+#include <cstring>
+#include <unistd.h>
 
 #else
 #error "Unsupported platform"
@@ -213,7 +215,7 @@ int startSocketWindows(int argc, char *argv[])
 
 #if defined(__linux__)
 // Error for linux sockets
-void error(char *msg)
+void error(const char *msg)
 {
     perror(msg);
     exit(0);
@@ -265,7 +267,7 @@ int startSocketLinux(int argc, char *argv[])
     // and finally specifying that the length is equivalent to the server names length.
     // e.g. void bcopy(char *s1, char *s2, int lenght)
     // htons changes the previously provided port member to the correct network byte order.
-    bzero((char *)&serv_addr, sizeof(serv_addr));
+    memset(buffer, 0, 256);
     serv_addr.sin_family = AF_INET;
     bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
     serv_addr.sin_port = htons(portno);
@@ -282,13 +284,13 @@ int startSocketLinux(int argc, char *argv[])
     printf("Please enter the message: ");
     bzero(buffer, 256);
     fgets(buffer, 255, stdin);
-    n = write(sockfd, buffer, strlen(buffer));
+    n = send(sockfd, buffer, strlen(buffer), 0);
     if (n < 0)
     {
         error("Error writing to socket");
     }
     bzero(buffer, 256);
-    n = read(sockfd, buffer, 255);
+    n = recv(sockfd, buffer, 255, 0);
     if (n < 0)
     {
         error("Error reading from socket");
