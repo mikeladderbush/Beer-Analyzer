@@ -1,0 +1,7 @@
+12/5/2024
+
+I need to combine partial data sources:
+
+1. parse text from chatgpt.
+2. scrape recipes from brewersfriend.
+3. find valuable data within limited APIs (bitterness, brewing time, etc.)
