@@ -1,0 +1,47 @@
+tastes:
+
+sweet,
+sour, 
+salty,
+savory,
+bitter
+
+smells:
+
+Fragrant/Floral
+Fruity (Tropical/Stone Fruit)
+Fruity (Citrus)
+Sweet (Caramel/Toffee/Chocolate)
+Toasted/Nutty/Grainy
+Woody/Oaky/Vanilla-like
+Minty/Herbal/Spicy (Hops and Spices)
+Chemical (Solvent, Cleaner-like)
+Decayed/Rancid (Sulfury, Skunky, Cheesy)
+Popcorn/Cereal-like (Dry, Corny notes)
+
+mouthfeels:
+
+thick
+creamy
+light
+smooth
+crisp
+bite
+
+effecting parameters:
+
+yeast
+malt
+roast level (if roasted)
+water profile(minerals)
+vessel
+hops
+spices
+age
+aging process
+aging temperatures
+time/aging temperature
+time since bottling
+carbonation method
+clarification method
+

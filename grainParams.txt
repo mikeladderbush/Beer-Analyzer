@@ -1,0 +1,265 @@
+Grains taste and aroma after simple fermentation per chatGPT:
+
+Below is a table of approximate sensory evaluations for each listed ingredient after a simple fermentation with neutral water and minimal yeast influence. These values are rough estimates meant to reflect common flavor/aroma descriptors associated with these ingredients in brewing contexts. The scale is from 1-10, where 1 = virtually none and 10 = very strong.
+
+**Taste Categories (5):**  
+- Sweet  
+- Sour  
+- Salty  
+- Bitter  
+- Umami
+
+**Aroma Categories (10):**  
+- Fragrant/Floral  
+- Fruity (non-citrus)  
+- Citrus  
+- Woody/Resinous  
+- Chemical  
+- Sweet (aromatic sweet notes)  
+- Minty/Herbal/Pungent  
+- Toasted/Nutty  
+- Popcorn/Cereal-like  
+- Decayed/Rancid
+
+---
+
+### Sugars & Syrups
+
+**Sugar (Adjunct) [Sucrose-like]**  
+**Taste:** Sweet:9, Sour:1, Salty:1, Bitter:1, Umami:1  
+**Aroma:** Fragrant/Floral:1, Fruity:1, Citrus:1, Woody:1, Chemical:1, Sweet:2, Minty/Herbal:1, Toasted/Nutty:1, Popcorn/Cereal:1, Decayed:1
+
+**Dextrose (Corn Sugar)**  
+Taste: S:9, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:1, Ch:1, Sw:2, Mi:1, To:1, Po:1, De:1
+
+**Honey**  
+Taste: S:8, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:4, Fr:2, Ci:1, Wo:1, Ch:1, Sw:4, Mi:1, To:1, Po:1, De:1
+
+**Lactose (Milk Sugar)**  
+Taste: S:7, So:1, Sa:1, B:1, U:2  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:1, Ch:1, Sw:3, Mi:1, To:1, Po:2, De:1
+
+**Maltodextrin**  
+Taste: S:5, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:1, Ch:1, Sw:2, Mi:1, To:1, Po:1, De:1
+
+**Maple Syrup**  
+Taste: S:8, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:2, Fr:2, Ci:1, Wo:3, Ch:1, Sw:4, Mi:1, To:2, Po:2, De:1
+
+**Molasses**  
+Taste: S:8, So:1, Sa:1, B:2, U:2  
+Aroma: Fg:2, Fr:2, Ci:1, Wo:2, Ch:1, Sw:4, Mi:1, To:3, Po:2, De:1
+
+**Table Sugar (Sucrose)**  
+Taste: S:9, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:1, Ch:1, Sw:2, Mi:1, To:1, Po:1, De:1
+
+**Turbinado**  
+Taste: S:9, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:2, Fr:1, Ci:1, Wo:1, Ch:1, Sw:3, Mi:1, To:2, Po:1, De:1
+
+---
+
+### Base Malts (Grain)
+
+**2-Row Pale Malt**  
+Taste: S:5, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:2, Fr:2, Ci:1, Wo:2, Ch:1, Sw:4, Mi:1, To:4, Po:5, De:1
+
+**6-Row Pale Malt**  
+Taste: S:5, So:1, Sa:1, B:2, U:1  
+Aroma: Fg:1, Fr:2, Ci:1, Wo:3, Ch:1, Sw:3, Mi:1, To:4, Po:6, De:1
+
+**Acidulated Malt**  
+Taste: S:4, So:4, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:2, Ci:2, Wo:1, Ch:2, Sw:3, Mi:1, To:2, Po:4, De:1
+
+**Golden Promise**  
+Taste: S:6, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:2, Fr:3, Ci:1, Wo:2, Ch:1, Sw:5, Mi:1, To:4, Po:5, De:1
+
+**Maris Otter**  
+Taste: S:6, So:1, Sa:1, B:1, U:2  
+Aroma: Fg:2, Fr:2, Ci:1, Wo:2, Ch:1, Sw:4, Mi:1, To:5, Po:5, De:1
+
+**Mild Malt**  
+Taste: S:5, So:1, Sa:1, B:2, U:2  
+Aroma: Fg:1, Fr:2, Ci:1, Wo:3, Ch:1, Sw:3, Mi:1, To:5, Po:4, De:1
+
+**Munich Malt**  
+Taste: S:6, So:1, Sa:1, B:2, U:3  
+Aroma: Fg:1, Fr:2, Ci:1, Wo:2, Ch:1, Sw:4, Mi:1, To:6, Po:4, De:1
+
+**Peat Smoked Malt**  
+Taste: S:4, So:1, Sa:1, B:2, U:3  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:7, Ch:2, Sw:2, Mi:2, To:3, Po:2, De:2
+
+**Pilsner Malt**  
+Taste: S:5, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:2, Fr:2, Ci:1, Wo:1, Ch:1, Sw:4, Mi:1, To:3, Po:6, De:1
+
+**Rye Malt**  
+Taste: S:4, So:1, Sa:1, B:2, U:2  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:2, Ch:1, Sw:3, Mi:2, To:4, Po:4, De:1
+
+**Smoked Malt** (e.g. Beechwood)  
+Taste: S:4, So:1, Sa:1, B:2, U:3  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:6, Ch:2, Sw:2, Mi:1, To:3, Po:2, De:2
+
+**Vienna Malt**  
+Taste: S:5, So:1, Sa:1, B:2, U:2  
+Aroma: Fg:1, Fr:2, Ci:1, Wo:2, Ch:1, Sw:4, Mi:1, To:5, Po:4, De:1
+
+**Wheat Malt**  
+Taste: S:5, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:2, Ci:1, Wo:1, Ch:1, Sw:4, Mi:1, To:3, Po:6, De:1
+
+---
+
+### Caramel/Crystal Malts
+
+**Caramel Malt (e.g. 40L)**  
+Taste: S:7, So:1, Sa:1, B:2, U:2  
+Aroma: Fg:2, Fr:3, Ci:1, Wo:1, Ch:1, Sw:6, Mi:1, To:4, Po:3, De:1
+
+**Amber Malt**  
+Taste: S:4, So:1, Sa:1, B:3, U:2  
+Aroma: Fg:1, Fr:2, Ci:1, Wo:2, Ch:1, Sw:3, Mi:1, To:5, Po:3, De:1
+
+**Cara Ruby**  
+Taste: S:7, So:1, Sa:1, B:2, U:2  
+Aroma: Fg:2, Fr:3, Ci:1, Wo:1, Ch:1, Sw:6, Mi:1, To:4, Po:3, De:1
+
+**Carafoam**  
+Taste: S:3, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:1, Ch:1, Sw:2, Mi:1, To:2, Po:3, De:1
+
+**Caramel/Crystal Malt (General)**  
+Taste: S:7, So:1, Sa:1, B:2, U:2  
+Aroma: Fg:2, Fr:3, Ci:1, Wo:1, Ch:1, Sw:6, Mi:1, To:4, Po:3, De:1
+
+**Carapils (Dextrin)**  
+Taste: S:3, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:1, Ch:1, Sw:2, Mi:1, To:2, Po:3, De:1
+
+**Honey Malt**  
+Taste: S:8, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:3, Fr:2, Ci:1, Wo:1, Ch:1, Sw:7, Mi:1, To:3, Po:3, De:1
+
+---
+
+### Extracts
+
+**Dry Malt Extract (DME)**  
+Taste: S:7, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:2, Fr:2, Ci:1, Wo:1, Ch:1, Sw:5, Mi:1, To:3, Po:4, De:1
+
+**Liquid Malt Extract (LME)**  
+Taste: S:8, So:1, Sa:1, B:1, U:2  
+Aroma: Fg:2, Fr:3, Ci:1, Wo:1, Ch:1, Sw:6, Mi:1, To:4, Po:3, De:1
+
+---
+
+### Raw & Specialty Grains
+
+**Raw Malt (Grain)**  
+Taste: S:4, So:1, Sa:1, B:2, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:2, Ch:1, Sw:2, Mi:1, To:3, Po:5, De:1
+
+**Chit Malt** (Undermodified)  
+Taste: S:4, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:1, Ch:1, Sw:3, Mi:1, To:2, Po:6, De:1
+
+---
+
+### Flaked Adjuncts
+
+**Flaked Barley**  
+Taste: S:3, So:1, Sa:1, B:2, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:2, Ch:1, Sw:2, Mi:1, To:3, Po:5, De:1
+
+**Flaked Corn (Maize)**  
+Taste: S:4, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:1, Ch:1, Sw:3, Mi:1, To:2, Po:6, De:1
+
+**Flaked Oats**  
+Taste: S:3, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:1, Ch:1, Sw:2, Mi:1, To:3, Po:5, De:1
+
+**Flaked Rice**  
+Taste: S:2, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:1, Ch:1, Sw:2, Mi:1, To:1, Po:4, De:1
+
+**Flaked Rye**  
+Taste: S:3, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:2, Ch:1, Sw:2, Mi:2, To:3, Po:4, De:1
+
+**Flaked Spelt**  
+Taste: S:3, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:2, Ch:1, Sw:2, Mi:1, To:3, Po:5, De:1
+
+**Flaked Wheat**  
+Taste: S:3, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:1, Ch:1, Sw:2, Mi:1, To:3, Po:5, De:1
+
+**Grits** (Corn Grits)  
+Taste: S:3, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:1, Ch:1, Sw:2, Mi:1, To:2, Po:5, De:1
+
+**Rice Hulls** (Inert)  
+Taste: S:1, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:2, Ch:1, Sw:1, Mi:1, To:1, Po:1, De:1
+
+**Torrified Wheat**  
+Taste: S:4, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:1, Ch:1, Sw:3, Mi:1, To:4, Po:7, De:1
+
+---
+
+### Roasted Malts
+
+**Aromatic Malt**  
+Taste: S:5, So:1, Sa:1, B:2, U:2  
+Aroma: Fg:2, Fr:2, Ci:1, Wo:2, Ch:1, Sw:5, Mi:1, To:5, Po:3, De:1
+
+**Biscuit Malt**  
+Taste: S:4, So:1, Sa:1, B:2, U:2  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:2, Ch:1, Sw:3, Mi:1, To:6, Po:4, De:1
+
+**Black (Patent) Malt**  
+Taste: S:2, So:1, Sa:1, B:8, U:2  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:3, Ch:2, Sw:1, Mi:1, To:4, Po:2, De:2
+
+**Black Barley** (Roasted Unmalted Barley)  
+Taste: S:2, So:1, Sa:1, B:8, U:2  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:3, Ch:2, Sw:1, Mi:1, To:3, Po:2, De:2
+
+**Brown Malt**  
+Taste: S:3, So:1, Sa:1, B:3, U:2  
+Aroma: Fg:1, Fr:2, Ci:1, Wo:3, Ch:1, Sw:2, Mi:1, To:5, Po:3, De:1
+
+**Chocolate Malt**  
+Taste: S:3, So:1, Sa:1, B:5, U:2  
+Aroma: Fg:1, Fr:2, Ci:1, Wo:2, Ch:1, Sw:3, Mi:1, To:5, Po:2, De:1
+
+**Malted Oats**  
+Taste: S:3, So:1, Sa:1, B:1, U:1  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:1, Ch:1, Sw:2, Mi:1, To:4, Po:5, De:1
+
+**Roasted Barley**  
+Taste: S:1, So:1, Sa:1, B:7, U:2  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:3, Ch:2, Sw:1, Mi:1, To:3, Po:2, De:2
+
+**Roasted Wheat**  
+Taste: S:2, So:1, Sa:1, B:5, U:2  
+Aroma: Fg:1, Fr:1, Ci:1, Wo:2, Ch:1, Sw:2, Mi:1, To:5, Po:3, De:1
+
+**Special Roast**  
+Taste: S:4, So:2, Sa:1, B:3, U:2  
+Aroma: Fg:1, Fr:2, Ci:1, Wo:2, Ch:1, Sw:3, Mi:1, To:6, Po:4, De:1
+
+
+
