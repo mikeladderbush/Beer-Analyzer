@@ -1,3 +1,5 @@
+#if defined(__linux__)
+
 #include "linuxSocket.h"
 #include <stdio.h>
 #include <sys/types.h>
@@ -90,3 +92,4 @@ int startSocketLinux()
     return 0;
 }
 
+#endif
