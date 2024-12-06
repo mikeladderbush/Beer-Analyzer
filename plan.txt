@@ -3,5 +3,6 @@
 I need to combine partial data sources:
 
 1. parse text from chatgpt.
-2. scrape recipes from brewersfriend.
+2. parse CSV datasets for valuable parameters
 3. find valuable data within limited APIs (bitterness, brewing time, etc.)
+4. structure and compare variables

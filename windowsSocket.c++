@@ -68,7 +68,7 @@ int startSocketWindows()
 
     // Resolve the server address and port by providing the node via the command line along with other parameters.
     // Will update and replace node argument with constant.
-    iResult = getaddrinfo("example.com", DEFAULT_PORT, &hints, &result);
+    iResult = getaddrinfo("https://punkapi.com/documentation/v2/beers", DEFAULT_PORT, &hints, &result);
     if (iResult != 0)
     {
         printf("getaddrinfo failed: %d\n", iResult);

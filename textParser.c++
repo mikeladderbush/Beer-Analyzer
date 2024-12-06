@@ -9,7 +9,7 @@
 
 // function declarations
 std::string textFileToString(const std::string& filepath);
-int fileParser(const std::string& filepath);
+int textParser(const std::string& filepath);
 
 
 struct Hop{
@@ -67,18 +67,24 @@ int textParser(const std::string& filepath){
     // define the first instance of the found variable, in this case its 0 because we havent looked yet.
     int lastFoundAt = 0;
 
+    int posOfSweet = 0;
+    int valOfSweet = 0;
+    int nextInt = 0;
+
     // loop through the length of the data finding "Sweet" each time and then marking the position as the last occurance
     // in order to not repeat occurances. If no other sweet can be found the loop will break.
     // This is for testing purposes so I can eventually create a system for parsing.
     for (int i = 0; i < dataToParse.length(); i++){
-        int posOfSweet = dataToParse.find("Sweet", lastFoundAt);
+        posOfSweet = dataToParse.find("Sweet", lastFoundAt);
+        valOfSweet = posOfSweet + 30;
+        valOfSweet = dataToParse[valOfSweet];
 
         if(posOfSweet == std::string::npos){
             break;
         }
 
         lastFoundAt = posOfSweet + 1;
-        printf("%d\n",posOfSweet);
+        printf("%d %d\n",posOfSweet, nextInt);
     }
 
     return 0;
