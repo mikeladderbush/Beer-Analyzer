@@ -7,6 +7,7 @@
 #include <sstream>
 #include <regex>
 #include <vector>
+#include <map>
 
 // function declarations
 std::string textFileToString(const std::string& filepath);
@@ -24,7 +25,7 @@ struct Hop{
         int salty;
         int bitter;
         int umami;
-    };
+    }flavor;
 
     struct Smell{
 
@@ -39,9 +40,15 @@ struct Hop{
         int cereal;
         int decayed;
 
-    };
+    }smell;
 
 };
+
+// initialize a hop and a string:int map so that we can map the hop member variables to the keywords. Then we can parse for the keywords and their values before saving the values into the hop structs.
+Hop hop;
+
+std::map<std::string,int*> keywordToStructMember = {{"Sweet (S)", &hop.flavor.sweet},{ "Sour", &hop.flavor.sour},{ "Salty",&hop.flavor.salty},{ "Bitter",&hop.flavor.bitter},{ "Umami",&hop.flavor.umami},{ "fragrantFloral",&hop.smell.fragrantFloral},{"fruityNonCitrus",&hop.smell.fruityNonCitrus},{ "Citrus",&hop.smell.citrus},{ "Woody",&hop.smell.woody},{ "Sweet (Sw)",&hop.smell.sweetSmell},{ "Minty",&hop.smell.minty},{ "Toasted",&hop.smell.toasted},{ "Cereal",&hop.smell.cereal},{ "Decayed",&hop.smell.decayed}};
+
 
 
 // Providing a filepath 
@@ -93,8 +100,9 @@ for (const std::string& word : keywords){
 		}
 	}
 
+	// position doesnt matter but need the title of the parameter variable and then to store that value into the struct.
+	
         lastFoundAt = posOfWord + word.length();
-        printf("%d %c\n",posOfWord, parameterValue);
     }
 }
 
