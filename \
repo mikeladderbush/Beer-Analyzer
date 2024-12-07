@@ -6,14 +6,11 @@
 #include <fstream>
 #include <sstream>
 #include <regex>
-#include <vector>
 
 // function declarations
 std::string textFileToString(const std::string& filepath);
 int textParser(const std::string& filepath);
 
-// vector of keywords that will be looped through and searched for in the parsed text.
-std::vector<std::string> keywords = {"Sweet (S)", "Sour", "Salty", "Bitter", "Umami", "fragrantFloral","fruityNonCitrus", "Citrus", "Woody", "Sweet (Sw)", "Minty", "Toasted", "Cereal", "Decayed"};
 
 struct Hop{
     std::string name;
@@ -68,38 +65,39 @@ int textParser(const std::string& filepath){
     std::string dataToParse = textFileToString(filepath);
 
     // define the first instance of the found variable, in this case its 0 because we havent looked yet.
-    // Null terminated character is good practice for initializing char.
     int lastFoundAt = 0;
-    std::string searchStr = "Sweet (S)";
-    char  parameterValue = '\0';
+    std::string searchStr = "Sweet";
+    int parameterValue = 0;
     int posOfSweet = 0;
+    int nextInt = 0;
 
-    // Loops and finds the position of the desired keyword, then loops again starting from that position in order to find the next character that is actually a digit. That digit will for the most part be our assigned value for that parameter.
+    // loop through the length of the data finding "Sweet" each time and then marking the position as the last occurance
+    // in order to not repeat occurances. If no other sweet can be found the loop will break.
+    // This is for testing purposes so I can eventually create a system for parsing.
     for (int i = 0; i < dataToParse.length(); i++){
 
         posOfSweet = dataToParse.find(searchStr, lastFoundAt);
-	size_t digitSearch = posOfSweet + searchStr.length();
+	size_t digitSearch = posOfSweet + searchStr;
 
 
 	for(size_t j = digitSearch; j < dataToParse.length(); j++){
 		if(isdigit(dataToParse[j])){
 			parameterValue = dataToParse[j];
-			break;
 		}
 	}
         if(posOfSweet == std::string::npos){
             break;
         }
 
-        lastFoundAt = posOfSweet + searchStr.length();
-        printf("%d %c\n",posOfSweet, parameterValue);
+        lastFoundAt = posOfSweet + 1;
+        printf("%d %d\n",posOfSweet, nextInt);
     }
 
     return 0;
 }
 
 int main(){
-    const std::string& filepath = "hopParams.txt";
+    const std::string& filepath = "C:/Users/Michael Ladderbush/Desktop/C++ Projects/Beer Analyzer/hopParams.txt";
 
     int result = textParser(filepath);
 
