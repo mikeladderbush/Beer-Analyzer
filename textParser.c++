@@ -70,15 +70,20 @@ int textParser(const std::string& filepath){
     // define the first instance of the found variable, in this case its 0 because we havent looked yet.
     // Null terminated character is good practice for initializing char.
     int lastFoundAt = 0;
-    std::string searchStr = "Sweet (S)";
     char  parameterValue = '\0';
-    int posOfSweet = 0;
+    int posOfWord = 0;
 
     // Loops and finds the position of the desired keyword, then loops again starting from that position in order to find the next character that is actually a digit. That digit will for the most part be our assigned value for that parameter.
+for (const std::string& word : keywords){
+	lastFoundAt = 0;
     for (int i = 0; i < dataToParse.length(); i++){
 
-        posOfSweet = dataToParse.find(searchStr, lastFoundAt);
-	size_t digitSearch = posOfSweet + searchStr.length();
+        posOfWord = dataToParse.find(word, lastFoundAt);
+	if (posOfWord == std::string::npos){
+		break;
+	}
+	size_t digitSearch = posOfWord + word.length();
+	parameterValue = '\0';
 
 
 	for(size_t j = digitSearch; j < dataToParse.length(); j++){
@@ -87,13 +92,11 @@ int textParser(const std::string& filepath){
 			break;
 		}
 	}
-        if(posOfSweet == std::string::npos){
-            break;
-        }
 
-        lastFoundAt = posOfSweet + searchStr.length();
-        printf("%d %c\n",posOfSweet, parameterValue);
+        lastFoundAt = posOfWord + word.length();
+        printf("%d %c\n",posOfWord, parameterValue);
     }
+}
 
     return 0;
 }
