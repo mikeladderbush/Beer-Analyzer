@@ -18,6 +18,7 @@ std::vector<std::string> keywords = {"Sweet (S)", "Sour", "Salty", "Bitter", "Um
 
 struct Hop{
     std::string name;
+    std::string type;
 
     struct Flavor{
         int sweet;
@@ -51,6 +52,8 @@ std::map<std::string,int*> keywordToStructMember = {{"Sweet (S)", &hop.flavor.sw
 
 
 
+
+
 // Providing a filepath 
 std::string textFileToString(const std::string& filepath){
 
@@ -68,6 +71,9 @@ std::string textFileToString(const std::string& filepath){
     return buffer.str();
 }
 
+
+
+
 // take the filepath string as a parameter
 int textParser(const std::string& filepath){
 
@@ -79,6 +85,7 @@ int textParser(const std::string& filepath){
     int lastFoundAt = 0;
     char  parameterValue = '\0';
     int posOfWord = 0;
+    int hopName = 0;
 
     // Loops and finds the position of the desired keyword, then loops again starting from that position in order to find the next character that is actually a digit. That digit will for the most part be our assigned value for that parameter.
 for (const std::string& word : keywords){
