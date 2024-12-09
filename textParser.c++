@@ -100,12 +100,20 @@ for (const std::string& word : keywords){
 		}
 	}
 
+	if(parameterValue != '\0'){
+		if(keywordToStructMember.find(word) != keywordToStructMember.end()){
+			*keywordToStructMember[word] = parameterValue - '0';
+		}
+	}
+
 	// position doesnt matter but need the title of the parameter variable and then to store that value into the struct.
 	
         lastFoundAt = posOfWord + word.length();
     }
-}
 
+}
+	std::cout << "test" << "\n";
+	std::cout << hop.flavor.sweet << "\n";
     return 0;
 }
 
