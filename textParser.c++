@@ -10,20 +10,22 @@
 #include <map>
 
 // function declarations
-std::string textFileToString(const std::string& filepath);
-int textParser(const std::string& filepath);
+std::string textFileToString(const std::string &filepath);
+int textParser(const std::string &filepath);
 
 // vector of keywords that will be looped through and searched for in the parsed text.
-std::vector<std::string> keywords = {"Sweet (S)", "Sour", "Salty", "Bitter", 
-                            "Umami", "fragrantFloral","fruityNonCitrus", "Citrus", 
-                            "Woody", "Sweet (Sw)", "Minty", "Toasted", "Cereal", "Decayed"};
+std::vector<std::string> keywords = {"Sweet (S)", "Sour", "Salty", "Bitter",
+                                     "Umami", "fragrantFloral", "fruityNonCitrus", "Citrus",
+                                     "Woody", "Sweet (Sw)", "Minty", "Toasted", "Cereal", "Decayed"};
 
-struct Hop{
+struct Hop
+{
 
     std::string name;
     std::string type;
 
-    struct Flavor {
+    struct Flavor
+    {
 
         int sweet;
         int sour;
@@ -33,7 +35,8 @@ struct Hop{
 
     } flavor;
 
-    struct Smell {
+    struct Smell
+    {
 
         int fragrantFloral;
         int fruityNonCitrus;
@@ -47,46 +50,38 @@ struct Hop{
         int decayed;
 
     } smell;
-
 };
 
-// initialize a hop and a string:int map so that we can map the hop member variables to the keywords. 
+// initialize a hop and a string:int map so that we can map the hop member variables to the keywords.
 // Then we can parse for the keywords and their values before saving the values into the hop structs.
 Hop hop;
 
-std::map<std::string,int*> keywordToStructMember = {{"Sweet (S)", &hop.flavor.sweet}, {"Sour", &hop.flavor.sour},
-                                    {"Salty", &hop.flavor.salty}, {"Bitter", &hop.flavor.bitter}, {"Umami", &hop.flavor.umami},
-                                    {"fragrantFloral", &hop.smell.fragrantFloral}, {"fruityNonCitrus", &hop.smell.fruityNonCitrus},
-                                    {"Citrus", &hop.smell.citrus},{"Woody", &hop.smell.woody},{"Sweet (Sw)", &hop.smell.sweetSmell},
-                                    {"Minty", &hop.smell.minty},{"Toasted", &hop.smell.toasted},{"Cereal", &hop.smell.cereal},
-                                    {"Decayed", &hop.smell.decayed}};
+std::map<std::string, int *> keywordToStructMember = {{"Sweet (S)", &hop.flavor.sweet}, {"Sour", &hop.flavor.sour}, {"Salty", &hop.flavor.salty}, {"Bitter", &hop.flavor.bitter}, {"Umami", &hop.flavor.umami}, {"fragrantFloral", &hop.smell.fragrantFloral}, {"fruityNonCitrus", &hop.smell.fruityNonCitrus}, {"Citrus", &hop.smell.citrus}, {"Woody", &hop.smell.woody}, {"Sweet (Sw)", &hop.smell.sweetSmell}, {"Minty", &hop.smell.minty}, {"Toasted", &hop.smell.toasted}, {"Cereal", &hop.smell.cereal}, {"Decayed", &hop.smell.decayed}};
 
-
-
-// Providing a filepath 
-std::string textFileToString(const std::string& filepath){
+// Providing a filepath
+std::string textFileToString(const std::string &filepath)
+{
 
     // Opens the file
     std::fstream file(filepath);
 
     // Simple error-checking to make sure the file has opened.
-    if(!file.is_open()){
+    if (!file.is_open())
+    {
 
         std::cerr << "Failed to open the file" << filepath << std::endl;
-
+        return "Error formatting file to string";
     }
 
     // using a stringstream buffer I move the file contents into the buffer and return it.
     std::stringstream buffer;
     buffer << file.rdbuf();
     return buffer.str();
-
 }
 
-
-
 // take the filepath string as a parameter
-int textParser(const std::string& filepath){
+int textParser(const std::string &filepath)
+{
 
     // stringify the data inside the text file from the path
     std::string dataToParse = textFileToString(filepath);
@@ -95,78 +90,83 @@ int textParser(const std::string& filepath){
     // Null terminated character is good practice for initializing char.
     int lastFoundAt = 0;
     char parameterValue = '\0';
-    size_t lastPos = 0;
-std::regex regexStr("\\W\\W\\s\\w+\\s");
-std::smatch regexMatch;
+    std::regex regexStr(R"(#### \d+\.\s+\*\*(.*?)\*\*)");
+    std::smatch regexMatch;
 
-    // Loops and finds the position of the desired keyword, then loops again starting from that position in order to find the next character that is actually a digit. That digit will for the most part be our assigned value for that parameter.
-while(std::regex_search(dataToParse.begin() + lastPos, dataToParse.end(), regexMatch, regexStr)){
-	
-	if(!regexMatch.ready()){
-		break;
-	}
+    // Updated to use a regex search that will look for patterns that represent the titles of our hops.
+    // If a hop title is found then the dataToParse becomes all following data in order to ignore anything
+    // before what was already found and stored. After the name is found then we iterate through
+    // our keywords and find all of their values by locating the first digit in the new dataToParse, then
+    // saving them into the hop structure.
+    while (std::regex_search(dataToParse, regexMatch, regexStr))
+    {
 
-	std::string hopTitle = regexMatch[1].matched ? regexMatch[1].str() : regexMatch[2].str();
-	hop.name = hopTitle;
-	lastPos += regexMatch.position() + regexMatch.length();
-
-    for (const std::string& word : keywords){
-
-        for (int i = 0; i < dataToParse.length(); i++){
-
-            int posOfWord = dataToParse.find(word, lastFoundAt);
-
-	        if (posOfWord == std::string::npos){
-
-		        break;
-	        }
-
-	        size_t digitSearch = posOfWord + word.length();
-	        parameterValue = '\0';
-
-
-	        for(size_t j = digitSearch; j < dataToParse.length(); j++){
-
-		        if(isdigit(dataToParse[j])){
-
-			        parameterValue = dataToParse[j];
-			        break;
-
-		        }
-
-	        }
-		//Checks if the values for both the parameter and keyword are valid and then assigns the value in the map. This will later be used to create hop structures which will be moved into the database. Will be implemented once the name and type values are also completed.		
-	        if(parameterValue != '\0'){
-
-		        if(keywordToStructMember.find(word) != keywordToStructMember.end()){
-
-			    *keywordToStructMember[word] = parameterValue - '0';
-
-		        }
-
-	        }
-
-	        // position doesnt matter but need the title of the parameter variable and then to store that value into the struct.
-            lastFoundAt = posOfWord + word.length();
-		
+        if (!regexMatch.ready())
+        {
+            break;
         }
 
+        std::string hopTitle = regexMatch[1].matched ? regexMatch[1].str() : regexMatch[2].str();
+        hop.name = hopTitle;
+
+        dataToParse = regexMatch.suffix().str();
+
+        for (const std::string &word : keywords)
+        {
+
+            // position is found and then the new starting place for the loop to look is at the end
+            // of that word.
+            int posOfWord = dataToParse.find(word, lastFoundAt);
+            lastFoundAt = posOfWord + word.length();
+
+            if (posOfWord == std::string::npos)
+            {
+
+                break;
+            }
+
+            // Reset param to ensure correct new value.
+            parameterValue = '\0';
+
+            // new data substring is searched for the first digit and the value at that location is
+            // given to the parameterValue variable.
+            int digitSearch = dataToParse.find_first_of("0123456789", lastFoundAt);
+
+            if (digitSearch != std::string::npos)
+            {
+
+                parameterValue = dataToParse[digitSearch];
+
+                // Checks if the values for both the parameter and keyword are valid and then assigns the value in the map. This will later be used to create hop structures which will be moved into the database. Will be implemented once the name and type values are also completed.
+                if (parameterValue != '\0')
+                {
+
+                    if (keywordToStructMember.find(word) != keywordToStructMember.end())
+                    {
+
+                        *keywordToStructMember[word] = parameterValue - '0';
+                    }
+                }
+            }
+            else
+            {
+
+                continue;
+            }
+        }
+        std::cout << hop.name << "\n";
+        std::cout << hop.flavor.sweet << "\n";
     }
 
-	std::cout << "test" << "\n";
-	std::cout << hop.flavor.sweet << "\n";
+    return 0;
 }
 
-return 0;	
+int main()
+{
 
-}
-
-int main(){
-
-    const std::string& filepath = "hopParams.txt";
+    const std::string &filepath = "hopParams.txt";
 
     int result = textParser(filepath);
 
     return result;
-
 }
