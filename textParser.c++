@@ -99,6 +99,13 @@ int textParser(const std::string& filepath){
     int hopName = 0;
 
     // Loops and finds the position of the desired keyword, then loops again starting from that position in order to find the next character that is actually a digit. That digit will for the most part be our assigned value for that parameter.
+for (int totalLen = 0; dataToParse.length(); totalLen++) {
+
+	hopName = 0;
+	std::regex regexStr("\\W\\W\\s\\w+\\s");
+	std::smatch regexMatch;
+	std::regex_search(dataToParse, regexMatch, regexStr);
+
     for (const std::string& word : keywords){
 
 	    lastFoundAt = 0;
@@ -126,7 +133,7 @@ int textParser(const std::string& filepath){
 		        }
 
 	        }
-
+		//Checks if the values for both the parameter and keyword are valid and then assigns the value in the map. This will later be used to create hop structures which will be moved into the database. Will be implemented once the name and type values are also completed.		
 	        if(parameterValue != '\0'){
 
 		        if(keywordToStructMember.find(word) != keywordToStructMember.end()){
@@ -146,7 +153,9 @@ int textParser(const std::string& filepath){
 
 	std::cout << "test" << "\n";
 	std::cout << hop.flavor.sweet << "\n";
-    return 0;
+}
+
+return 0;	
 
 }
 
