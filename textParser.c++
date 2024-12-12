@@ -95,25 +95,26 @@ int textParser(const std::string& filepath){
     // Null terminated character is good practice for initializing char.
     int lastFoundAt = 0;
     char parameterValue = '\0';
-    int posOfWord = 0;
     size_t lastPos = 0;
 std::regex regexStr("\\W\\W\\s\\w+\\s");
 std::smatch regexMatch;
 
     // Loops and finds the position of the desired keyword, then loops again starting from that position in order to find the next character that is actually a digit. That digit will for the most part be our assigned value for that parameter.
-while(std::regex_search(dataToParse.begin() + lastPos, dataToParse.end(), regexMatch, regexStr){
+while(std::regex_search(dataToParse.begin() + lastPos, dataToParse.end(), regexMatch, regexStr)){
+	
+	if(!regexMatch.ready()){
+		break;
+	}
 
-	std::string hopTitle = regexMatch[1].str();
+	std::string hopTitle = regexMatch[1].matched ? regexMatch[1].str() : regexMatch[2].str();
 	hop.name = hopTitle;
 	lastPos += regexMatch.position() + regexMatch.length();
 
     for (const std::string& word : keywords){
 
-	    lastFoundAt = 0;
-
         for (int i = 0; i < dataToParse.length(); i++){
 
-            posOfWord = dataToParse.find(word, lastFoundAt);
+            int posOfWord = dataToParse.find(word, lastFoundAt);
 
 	        if (posOfWord == std::string::npos){
 
