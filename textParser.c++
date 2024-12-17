@@ -8,6 +8,7 @@
 #include <regex>
 #include <vector>
 #include <map>
+#include "sqlite3.h"
 
 // function declarations
 std::string textFileToString(const std::string &filepath);
@@ -61,6 +62,26 @@ std::map<std::string, int *> keywordToStructMember = {{"Sweet (S)", &hop.flavor.
 // Providing a filepath
 std::string textFileToString(const std::string &filepath)
 {
+
+	// Creating a sqlite3 object which is the connection to our database
+	sqlite3 *db;
+	int dbOpenErr = sqlite3_open("MasterBeerParams.db", &db);
+
+	// error checking
+	if (dbOpenErr){
+		std::cerr << "Issue opening the database" << sqlite3_errmsg(db) << std::endl;
+	}
+
+	// Next I make a sql statement which will be executed using the sqlite3_exec function. The function accepts the database connection as well as a pointer to the statement C string
+	const char *sql = "CREATE TABLE IF NOT EXISTS hopData (Id INTEGER PRIMARY KEY, Name TEXT NOT NULL, Type TEXT NOT NULL, Sweet INTEGER, Bitter INTEGER, Sour INTEGER, Salty INTEGER, Umami INTEGER, Floral INTEGER, Fruity INTEGER, Citrus INTEGER, Woody INTEGER, Chemical INTEGER, SweetSmell INTEGER, Minty INTEGER, Toasted INTEGER, Popcorn INTEGER, Decayed INTEGER);"; 
+	dbOpenErr = sqlite3_exec(db, sql, 0, 0, 0);
+
+	if (dbOpenErr != SQLITE_OK){
+		std::cerr << "SQL error: " << sqlite3_errmsg(db) << std::endl;
+	}
+
+	// use INSERT INTO db (param) VALUES ('xxx'); to start inserting tomorrow, stopping for now...headache
+
 
     // Opens the file
     std::fstream file(filepath);
