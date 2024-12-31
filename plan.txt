@@ -49,3 +49,7 @@ Need to make it so that the parser can sort through different files without adju
 2. Start finding resources that the socket can pull from and then be parsed.
 3. Decide what types of analysis would be best to implement first.
 4. Start breaking down parameters of beers and then what variables most effect those params.
+
+12/31/2024
+
+Need to update the regex to be able to find the valeus for both hop data and grain data.
