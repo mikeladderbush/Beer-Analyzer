@@ -8,11 +8,13 @@
 #include <regex>
 #include <vector>
 #include <map>
+#include <filesystem>
 #include "sqlite3.h"
 
 // function declarations
 std::string textFileToString(const std::string &filepath);
 int textParser(const std::string &filepath);
+std::string getBaseName(const std::string &filepath);
 
 // vector of keywords that will be looped through and searched for in the parsed text.
 std::vector<std::string> keywords = {
@@ -22,7 +24,7 @@ std::vector<std::string> keywords = {
     "Minty/Herbal/Pungent (Mi)", "Toasted/Nutty (To)", "Popcorn/Cereal-like (Po)",
     "Decayed/Rancid (De)"};
 
-struct Hop
+struct Ingredient
 {
 
     std::string name;
@@ -56,12 +58,12 @@ struct Hop
     } smell;
 };
 
-// initialize a hop and a string:int map so that we can map the hop member variables to the keywords.
-// Then we can parse for the keywords and their values before saving the values into the hop structs.
-Hop hop;
+// initialize a ingredient and a string:int map so that we can map the ingredient member variables to the keywords.
+// Then we can parse for the keywords and their values before saving the values into the ingredient structs.
+Ingredient ingredient;
 
 std::map<std::string, int *> keywordToStructMember = {
-    {"Sweet (S)", &hop.flavor.sweet}, {"Sour", &hop.flavor.sour}, {"Salty", &hop.flavor.salty}, {"Bitter", &hop.flavor.bitter}, {"Umami", &hop.flavor.umami}, {"Fragrant/Floral (Fg)", &hop.smell.fragrantFloral}, {"Fruity (non-citrus) (Fr)", &hop.smell.fruityNonCitrus}, {"Citrus (Ci)", &hop.smell.citrus}, {"Woody/Resinous (Wo)", &hop.smell.woody}, {"Chemical (Ch)", &hop.smell.chemical}, {"Sweet (Sw)", &hop.smell.sweetSmell}, {"Minty/Herbal/Pungent (Mi)", &hop.smell.minty}, {"Toasted/Nutty (To)", &hop.smell.toasted}, {"Popcorn/Cereal-like (Po)", &hop.smell.cereal}, {"Decayed/Rancid (De)", &hop.smell.decayed}};
+    {"Sweet (S)", &ingredient.flavor.sweet}, {"Sour", &ingredient.flavor.sour}, {"Salty", &ingredient.flavor.salty}, {"Bitter", &ingredient.flavor.bitter}, {"Umami", &ingredient.flavor.umami}, {"Fragrant/Floral (Fg)", &ingredient.smell.fragrantFloral}, {"Fruity (non-citrus) (Fr)", &ingredient.smell.fruityNonCitrus}, {"Citrus (Ci)", &ingredient.smell.citrus}, {"Woody/Resinous (Wo)", &ingredient.smell.woody}, {"Chemical (Ch)", &ingredient.smell.chemical}, {"Sweet (Sw)", &ingredient.smell.sweetSmell}, {"Minty/Herbal/Pungent (Mi)", &ingredient.smell.minty}, {"Toasted/Nutty (To)", &ingredient.smell.toasted}, {"Popcorn/Cereal-like (Po)", &ingredient.smell.cereal}, {"Decayed/Rancid (De)", &ingredient.smell.decayed}};
 
 // Providing a filepath
 std::string textFileToString(const std::string &filepath)
@@ -75,7 +77,7 @@ std::string textFileToString(const std::string &filepath)
     {
 
         std::cerr << "Failed to open the file" << filepath << std::endl;
-        return "Error formatting file to string";
+        return "";
     }
 
     // using a stringstream buffer I move the file contents into the buffer and return it.
@@ -90,6 +92,10 @@ int textParser(const std::string &filepath)
 
     // stringify the data inside the text file from the path
     std::string dataToParse = textFileToString(filepath);
+    if (dataToParse.empty())
+    {
+        return 1;
+    }
 
     // Creating a sqlite3 object which is the connection to our database
     sqlite3 *db;
@@ -101,9 +107,12 @@ int textParser(const std::string &filepath)
         std::cerr << "Issue opening the database" << sqlite3_errmsg(db) << std::endl;
     }
 
+    std::string baseName = getBaseName(filepath);
+    std::string tableName = baseName + "_DataTable";
+
     // Next I make a sql statement which will be executed using the sqlite3_exec function. The function accepts the database connection as well as a pointer to the statement C string
-    const char *sql = "CREATE TABLE IF NOT EXISTS hopData (Id INTEGER PRIMARY KEY, Name TEXT NOT NULL, Type TEXT NOT NULL, Sweet INTEGER, Bitter INTEGER, Sour INTEGER, Salty INTEGER, Umami INTEGER, Floral INTEGER, Fruity INTEGER, Citrus INTEGER, Woody INTEGER, Chemical INTEGER, SweetSmell INTEGER, Minty INTEGER, Toasted INTEGER, Cereal INTEGER, Decayed INTEGER, UNIQUE(NAME, TYPE));";
-    dbOpenErr = sqlite3_exec(db, sql, 0, 0, 0);
+    std::string sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (Id INTEGER PRIMARY KEY, Name TEXT NOT NULL, Type TEXT NOT NULL, Sweet INTEGER, Bitter INTEGER, Sour INTEGER, Salty INTEGER, Umami INTEGER, Floral INTEGER, Fruity INTEGER, Citrus INTEGER, Woody INTEGER, Chemical INTEGER, SweetSmell INTEGER, Minty INTEGER, Toasted INTEGER, Cereal INTEGER, Decayed INTEGER, UNIQUE(NAME, TYPE));";
+    dbOpenErr = sqlite3_exec(db, sql.c_str(), 0, 0, 0);
 
     if (dbOpenErr != SQLITE_OK)
     {
@@ -116,11 +125,11 @@ int textParser(const std::string &filepath)
     std::regex regexStr(R"(#### \d+\.\s+\*\*(.*?)\*\*)");
     std::smatch regexMatch;
 
-    // Updated to use a regex search that will look for patterns that represent the titles of our hops.
-    // If a hop title is found then the dataToParse becomes all following data in order to ignore anything
+    // Updated to use a regex search that will look for patterns that represent the titles of our ingredients.
+    // If a ingredient title is found then the dataToParse becomes all following data in order to ignore anything
     // before what was already found and stored. After the name is found then we iterate through
     // our keywords and find all of their values by locating the first digit in the new dataToParse, then
-    // saving them into the hop structure.
+    // saving them into the ingredient structure.
     while (std::regex_search(dataToParse, regexMatch, regexStr))
     {
         int lastFoundAt = 0;
@@ -130,8 +139,8 @@ int textParser(const std::string &filepath)
             break;
         }
 
-        std::string hopTitle = regexMatch[1].matched ? regexMatch[1].str() : regexMatch[2].str();
-        hop.name = hopTitle;
+        std::string ingredientTitle = regexMatch[1].matched ? regexMatch[1].str() : regexMatch[2].str();
+        ingredient.name = ingredientTitle;
 
         dataToParse = regexMatch.suffix().str();
 
@@ -160,7 +169,7 @@ int textParser(const std::string &filepath)
 
                 parameterValue = dataToParse[digitSearch];
 
-                // Checks if the values for both the parameter and keyword are valid and then assigns the value in the map. This will later be used to create hop structures which will be moved into the database. Will be implemented once the name and type values are also completed.
+                // Checks if the values for both the parameter and keyword are valid and then assigns the value in the map. This will later be used to create ingredient structures which will be moved into the database. Will be implemented once the name and type values are also completed.
                 if (parameterValue != '\0')
                 {
 
@@ -180,8 +189,8 @@ int textParser(const std::string &filepath)
         }
 
         // Created sql statement string which will be converted to a C string before being sent to the database.
-        std::string sql = "INSERT INTO hopData (Name, Type, Sweet, Sour, Salty, Bitter, Umami, Floral, Fruity, Citrus, Woody, Chemical, SweetSmell, Minty, Toasted, Cereal, Decayed) "
-                          "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        std::string sql = "INSERT INTO " + tableName + " (Name, Type, Sweet, Sour, Salty, Bitter, Umami, Floral, Fruity, Citrus, Woody, Chemical, SweetSmell, Minty, Toasted, Cereal, Decayed) "
+                                                       "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         sqlite3_stmt *stmt;
 
@@ -193,23 +202,23 @@ int textParser(const std::string &filepath)
         }
 
         // After preparing the statement we can bind the struct values before inserting.
-        sqlite3_bind_text(stmt, 1, hop.name.c_str(), -1, SQLITE_STATIC);
-        sqlite3_bind_text(stmt, 2, hop.type.c_str(), -1, SQLITE_STATIC);
-        sqlite3_bind_int(stmt, 3, hop.flavor.sweet);
-        sqlite3_bind_int(stmt, 4, hop.flavor.sour);
-        sqlite3_bind_int(stmt, 5, hop.flavor.salty);
-        sqlite3_bind_int(stmt, 6, hop.flavor.bitter);
-        sqlite3_bind_int(stmt, 7, hop.flavor.umami);
-        sqlite3_bind_int(stmt, 8, hop.smell.fragrantFloral);
-        sqlite3_bind_int(stmt, 9, hop.smell.fruityNonCitrus);
-        sqlite3_bind_int(stmt, 10, hop.smell.citrus);
-        sqlite3_bind_int(stmt, 11, hop.smell.woody);
-        sqlite3_bind_int(stmt, 12, hop.smell.chemical);
-        sqlite3_bind_int(stmt, 13, hop.smell.sweetSmell);
-        sqlite3_bind_int(stmt, 14, hop.smell.minty);
-        sqlite3_bind_int(stmt, 15, hop.smell.toasted);
-        sqlite3_bind_int(stmt, 16, hop.smell.cereal);
-        sqlite3_bind_int(stmt, 17, hop.smell.decayed);
+        sqlite3_bind_text(stmt, 1, ingredient.name.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 2, ingredient.type.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_int(stmt, 3, ingredient.flavor.sweet);
+        sqlite3_bind_int(stmt, 4, ingredient.flavor.sour);
+        sqlite3_bind_int(stmt, 5, ingredient.flavor.salty);
+        sqlite3_bind_int(stmt, 6, ingredient.flavor.bitter);
+        sqlite3_bind_int(stmt, 7, ingredient.flavor.umami);
+        sqlite3_bind_int(stmt, 8, ingredient.smell.fragrantFloral);
+        sqlite3_bind_int(stmt, 9, ingredient.smell.fruityNonCitrus);
+        sqlite3_bind_int(stmt, 10, ingredient.smell.citrus);
+        sqlite3_bind_int(stmt, 11, ingredient.smell.woody);
+        sqlite3_bind_int(stmt, 12, ingredient.smell.chemical);
+        sqlite3_bind_int(stmt, 13, ingredient.smell.sweetSmell);
+        sqlite3_bind_int(stmt, 14, ingredient.smell.minty);
+        sqlite3_bind_int(stmt, 15, ingredient.smell.toasted);
+        sqlite3_bind_int(stmt, 16, ingredient.smell.cereal);
+        sqlite3_bind_int(stmt, 17, ingredient.smell.decayed);
 
         // Once the values are bound to the statement the query can be executed
         if (sqlite3_step(stmt) != SQLITE_DONE)
@@ -218,23 +227,35 @@ int textParser(const std::string &filepath)
         }
         else
         {
-            std::cout << "Hop struct inserted successfully" << std::endl;
+            std::cout << "ingredient struct inserted successfully" << std::endl;
         }
 
         // Finalizing sql statement to close out.
         sqlite3_finalize(stmt);
 
-        std::cout << hop.name << "\n";
-        std::cout << hop.flavor.sweet << "\n";
+        std::cout << ingredient.name << "\n";
+        std::cout << ingredient.flavor.sweet << "\n";
     }
 
     return 0;
 }
 
-int main()
+std::string getBaseName(const std::string &filepath)
+{
+    std::filesystem::path path(filepath);
+    return path.stem().string();
+}
+
+int main(int argc, char **argv)
 {
 
-    const std::string &filepath = "hopParams.txt";
+    if (argc < 2)
+    {
+        std::cerr << "Too many arguments, please only provide the filepath to be parsed" << std::endl;
+        return 1;
+    }
+
+    std::string filepath = argv[1];
 
     int result = textParser(filepath);
 
