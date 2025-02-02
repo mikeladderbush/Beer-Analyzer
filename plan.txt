@@ -52,4 +52,9 @@ Need to make it so that the parser can sort through different files without adju
 
 12/31/2024
 
-Need to update the regex to be able to find the valeus for both hop data and grain data.
+Need to update the regex to be able to find the values for both hop data and grain data.
+
+2/2/2025
+
+Next step is to add a method that will parse the filename and use various logic to understand what type of ingredient the data represents.
+Then we need to parse that data itself and if the parameters can fit into our established flavors. If not we need to set up a system of comparison.
